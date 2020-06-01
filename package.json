@@ -1,0 +1,9 @@
+{
+  "name": "TS-twitterClone",
+  "version": "1",
+  "description": "first attempt in mamking a typeScript app - twitter clone",
+  "main": "index.js",
+  "repository": "https://github.com/ShaiGilboa/TS-twitterClone.git",
+  "author": "Shai Gilboa <shizel@gmail.com>",
+  "license": "MIT"
+}

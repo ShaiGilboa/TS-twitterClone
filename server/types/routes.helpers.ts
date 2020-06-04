@@ -1,0 +1,15 @@
+export interface UserProfileType {
+  handle: string,
+  displayName: string,
+  avatarSrc: string,
+  bannerSrc: string,
+  location: string,
+  url: string,
+  joined: string,
+  bio: string,
+  numFollowing: number,
+  numFollowers: number,
+  numLikes: number,
+  isFollowingYou: boolean,
+  isBeingFollowedByYou: boolean,
+}

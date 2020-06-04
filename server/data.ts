@@ -1,4 +1,6 @@
-interface UserType {
+import { UserProfileType } from './types/routes.helpers';
+
+export interface UserType {
   handle: string,
   displayName: string,
   avatarSrc: string,
@@ -11,21 +13,19 @@ interface UserType {
   followerIds: string[],
   likeIds: string[],
 }
-
 const diplomog : UserType = {
   handle: 'diplomog',
-    displayName: 'Palmerston',
-    avatarSrc: '/assets/diplomog-avatar.jpg',
-    bannerSrc: '/assets/diplomog-banner.jpeg',
-    location: 'Whitehall',
-    url: 'http://fco.gov.uk',
-    joined: '2016-02-02T12:00',
-    bio: 'Best friends with @treasurymog.',
-    followingIds: ['treasurymog'],
-    followerIds: ['treasurymog'],
-    likeIds: ['1212689921057665024'],
+  displayName: 'Palmerston',
+  avatarSrc: '/assets/diplomog-avatar.jpg',
+  bannerSrc: '/assets/diplomog-banner.jpeg',
+  location: 'Whitehall',
+  url: 'http://fco.gov.uk',
+  joined: '2016-02-02T12:00',
+  bio: 'Best friends with @treasurymog.',
+  followingIds: ['treasurymog'],
+  followerIds: ['treasurymog'],
+  likeIds: ['1212689921057665024'],
 }
-
 const treasurymog : UserType = {
   handle: 'treasurymog',
     displayName: 'Gladstone, Esq.',
@@ -40,7 +40,6 @@ const treasurymog : UserType = {
     followerIds: ['diplomog', 'giantcat9'],
     likeIds: ['1209791721099411456'],
 }
-
 const giantcat9 : UserType = {
   handle: 'giantcat9',
     displayName: 'Giant Military Cats',
@@ -57,26 +56,24 @@ const giantcat9 : UserType = {
     followerIds: ['treasurymog'],
     likeIds: [],
 }
-
 export const users : object = {
   diplomog,
   treasurymog,
   giantcat9,
 }
-
-// console.log('users',users)
-
-interface MediaType {
+export interface MediaType {
   type: string,
   url: string,
 }
 
-interface TweetType {
+export interface TweetType {
   id: string,
-  authorHandle: string,
+  authorHandle?: string,
+  author?: UserType,
   timestamp: string,
   sortedTimestamp: string,
-  retweetOf? : string,
+  retweetOf? : string, //original tweet id
+  retweetFrom? : UserProfileType,
   likedBy: string[],
   retweetedBy: string[],
   status?: string,
@@ -114,8 +111,6 @@ export const tweets : TweetsDBType = {
       },
     ],
   },
-
-  
   // Diplomog
   '1209791721099411456': {
     id: '1209791721099411456',
@@ -128,7 +123,6 @@ export const tweets : TweetsDBType = {
       "If you're a 🇬🇧 diplomat abroad today, let me know where you are and what you're up to!",
     media: [],
   },
-
   '1215324598067245056r2': {
     id: '1215324598067245056r2',
     authorHandle: 'diplomog',
@@ -138,7 +132,6 @@ export const tweets : TweetsDBType = {
     likedBy: [],
     retweetedBy: [],
   },
-
   '1214624813723136002': {
     id: '1214624813723136002',
     authorHandle: 'diplomog',
@@ -146,9 +139,7 @@ export const tweets : TweetsDBType = {
     sortedTimestamp: '2020-01-12T04:31:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    status: `Sometimes I wonder... am I playing with the ribbon or is the ribbon playing with me?
-
-Maybe a more diplomatic approach will work 🤔`,
+    status: `Sometimes I wonder... am I playing with the ribbon or is the ribbon playing with me?\nMaybe a more diplomatic approach will work 🤔`,
     media: [
       {
         type: 'img',
@@ -163,9 +154,7 @@ Maybe a more diplomatic approach will work 🤔`,
     sortedTimestamp: '2019-12-25T21:53:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    status: `Moggy Christmas to all!
-
-Special wishes to all my diplomats, far from home at this time of year, serving 🇬🇧 all over the 🌍.`,
+    status: `Moggy Christmas to all!\nSpecial wishes to all my diplomats, far from home at this time of year, serving 🇬🇧 all over the 🌍.`,
     media: [
       {
         type: 'img',
@@ -180,11 +169,7 @@ Special wishes to all my diplomats, far from home at this time of year, serving 
     sortedTimestamp: '2019-12-30T19:23:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    status: `2019 has a been a wonderful year, but I definitely deserve some rest!
-
-I would love to know what my 🇬🇧diplomats have been getting up to! What’s been your highlight or biggest achievement of the year?
-
-My highlight has been coming back to work with my very own Palmy HQ 🤩`,
+    status: `2019 has a been a wonderful year, but I definitely deserve some rest!\nI would love to know what my 🇬🇧diplomats have been getting up to! What’s been your highlight or biggest achievement of the year?\nMy highlight has been coming back to work with my very own Palmy HQ 🤩`,
     media: [
       {
         type: 'img',
@@ -266,10 +251,7 @@ My highlight has been coming back to work with my very own Palmy HQ 🤩`,
     sortedTimestamp: '2020-01-01T11:53:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    status: `Come adopt Storm #Philadelphia
-He needs you to storm the enemy lines and find his new #ForeverHome
-#AdoptDontShop
-https://morrisanimalrefuge.org/adopt/storm `,
+    status: `Come adopt Storm #Philadelphia\nHe needs you to storm the enemy lines and find his new #ForeverHome\n#AdoptDontShop\nhttps://morrisanimalrefuge.org/adopt/storm `,
     media: [
       {
         type: 'img',
@@ -301,8 +283,7 @@ https://morrisanimalrefuge.org/adopt/storm `,
     sortedTimestamp: '2020-01-11T08:59:00+00:00',
     likedBy: [],
     retweetedBy: [],
-    status: `"Scotland Forever!"
-by Lady Butler / 1881`,
+    status: `"Scotland Forever!"\nby Lady Butler / 1881`,
     media: [
       {
         type: 'img',

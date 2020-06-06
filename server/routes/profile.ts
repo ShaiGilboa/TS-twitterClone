@@ -17,14 +17,14 @@ import {
   } from "./routes.helpers";
 
 export const router = express.Router()
-  .get('/api/:currentUser/profile', (req : express.Request, res : express.Response) => {
+  .get('/api/profile/:currentUser/get', (req : express.Request, res : express.Response): express.Response => {
     const currentUser : string = req.params.currentUser;
     const profile : UserProfileType = getUserProfile(currentUser, currentUser);
 
     return simulateProblems(res, {profile});
   })
 
-  .get('/api/:currentUser/profile/:handle', (req : express.Request, res : express.Response) => {
+  .get('/api/profile/:currentUser/other/:handle', (req : express.Request, res : express.Response) : express.Response => {
     const currentUser : string = req.params.currentUser;
     const handle : string = req.params.handle;
     try {
@@ -37,21 +37,21 @@ export const router = express.Router()
     }
   }
   )
-  .get('/api/:currentUser/following/:handle', (req : express.Request, res : express.Response) => {
+  .get('/api/profile/:currentUser/following/:handle', (req : express.Request, res : express.Response) : express.Response => {
     const handle : string = req.params.handle;
     const currentUser : string = req.params.currentUser;
     const user : UserType = getUser(handle);
     const following : UserProfileType[] = user.followingIds.map((followingHandle : string) => getUserProfile(followingHandle, currentUser))
     return res.status(200).json({following})
   })
-  .get('/api/:currentUser/followers/handle', (req : express.Request, res : express.Response) => {
+  .get('/api/profile/:currentUser/followers/handle', (req : express.Request, res : express.Response) : express.Response => {
     const handle : string = req.params.handle;
     const currentUser : string = req.params.currentUser;
     const user : UserType = getUser(handle);
     const followers : UserProfileType[] = user.followerIds.map((followerHandle : string) => getUserProfile(followerHandle, currentUser))
     return res.status(200).json({followers})
   })
-  .put('/api/:currentUser/follow/:handle', (req : express.Request, res : express.Response) => {
+  .put('/api/profile/:currentUser/follow/:handle', (req : express.Request, res : express.Response) : express.Response => {
     const handle : string = req.params.handle;
     const currentUserHandle : string = req.params.currentUser;
     const user : UserType = getUser(handle);
@@ -66,7 +66,7 @@ export const router = express.Router()
       return res.status(209).json({success : true})
     }
   })
-  .put('/api/:currentUser/unfollow/:handle', (req : express.Request, res : express.Response) => {
+  .put('/api/profile/:currentUser/unfollow/:handle', (req : express.Request, res : express.Response) : express.Response => {
     const handle : string = req.params.handle;
     const currentUserHandle : string = req.params.currentUser;
     const user : UserType = getUser(handle);

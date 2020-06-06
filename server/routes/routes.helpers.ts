@@ -57,13 +57,15 @@ export const getUser = (handle : string) : UserType => {
   return users[handle.toLowerCase()];
 }
 
-export const getUserProfile = (handle : string) : UserProfileType => {
+export const getUserProfile = (handle : string, currentUserHandle : string) : UserProfileType => {
   const user : UserType = getUser(handle);
   if(!user){
     throw new Error('user-not-found');
   }
+  // might be an issue when current user is the profile
   const currentUser : UserType = getCurrentUserFromHandle(CURRENT_USER_HANDLE);
-  const userProfile : UserProfileType = transformUserToProfile(user, currentUser);
+  const userProfile : UserProfileType = transformUserToProfile(user, currentUser); 
+
   return userProfile;
 }
 

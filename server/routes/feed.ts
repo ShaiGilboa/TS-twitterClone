@@ -35,22 +35,21 @@ const formatTweetResponse = (tweets : DenormalizedTweet[]) : FormattedTweets => 
   return {tweetsById, tweetIds}
 }
 
-export const router = express.Router();
+export const router = express.Router()
+  .get('/api/:currentUser/home-feed', (req : express.Request, res : express.Response) : void => {
+    const currentUser : string = req.params.currentUser;
+    const relevantTweets : DenormalizedTweet[] = getTweetsFroUser(currentUser)
+    const { tweetsById, tweetIds} = formatTweetResponse(relevantTweets)
+    return simulateProblems(res, {tweetsById, tweetIds})
+  })
 
-router.get('/api/:currentUser/home-feed', (req : express.Request, res : express.Response) : void => {
-  const currentUser : string = req.params.currentUser;
-  const relevantTweets : DenormalizedTweet[] = getTweetsFroUser(currentUser)
-  const { tweetsById, tweetIds} = formatTweetResponse(relevantTweets)
-  return simulateProblems(res, {tweetsById, tweetIds})
-})
-
-router.get('/api/:currentUser/:handle/feed', (req : express.Request, res : express.Response) => {
-  const handle : string = req.params.handle;
-  const currentUser : string = req.params.currentUser;
-  const tweets : DenormalizedTweet[] = getTweetsFromUser(handle, currentUser);
-  const { tweetsById, tweetIds} = formatTweetResponse(tweets);
-  return res.status(200).json({
-    tweetsById,
-    tweetIds,
-  });
-})
+  .get('/api/:currentUser/feed/:handle', (req : express.Request, res : express.Response) => {
+    const handle : string = req.params.handle;
+    const currentUser : string = req.params.currentUser;
+    const tweets : DenormalizedTweet[] = getTweetsFromUser(handle, currentUser);
+    const { tweetsById, tweetIds} = formatTweetResponse(tweets);
+    return res.status(200).json({
+      tweetsById,
+      tweetIds,
+    });
+  })

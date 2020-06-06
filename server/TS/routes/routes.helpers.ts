@@ -19,7 +19,7 @@ export const getCurrentUserFromHandle = (handle : string) : UserType => {
 
 const transformUserToProfile = (user : UserType, currentUser : UserType) : UserProfileType => {
   const userProfile : UserProfileType = {
-    handle : user.handle,
+    authorHandle : user.handle,
     displayName : user.displayName,
     avatarSrc : user.avatarSrc,
     bannerSrc : user.bannerSrc,
@@ -81,21 +81,39 @@ export const resolveRetweet = (tweet : TweetType, currentUserHandle : string) : 
 }
 
 export const denormalizeTweet = (tweet : TweetType, currentUserHandle : string) : DenormalizedTweet => {
-  const tweetCopy : DenormalizedTweet = {
-    id: tweet.id,
-    author: getUserProfile(tweet.authorHandle, currentUserHandle),
-    timestamp: tweet.timestamp,
-    sortedTimestamp: tweet.sortedTimestamp,
-    retweetOf : tweet.retweetOf, //original tweet id
-    retweetFrom : tweet.retweetFrom,
-    isLiked: tweet.likedBy.includes(currentUserHandle),
-    numLikes: tweet.likedBy.length,
-    numRetweets: tweet.retweetedBy.length,
-    isRetweeted: tweet.retweetedBy.includes(currentUserHandle),
-    status: tweet.status,
-    media: tweet.media,
+  if(tweet.retweetFrom){
+    const tweetCopy : DenormalizedTweet = {
+      id: tweet.id,
+      author: getUserProfile(tweet.retweetFrom.authorHandle, currentUserHandle),
+      timestamp: tweet.timestamp,
+      sortedTimestamp: tweet.sortedTimestamp,
+      retweetOf : tweet.retweetOf, //original tweet id
+      retweetFrom : tweet.retweetFrom,
+      isLiked: tweet.likedBy.includes(currentUserHandle),
+      numLikes: tweet.likedBy.length,
+      numRetweets: tweet.retweetedBy.length,
+      isRetweeted: tweet.retweetedBy.includes(currentUserHandle),
+      status: tweet.status,
+      media: tweet.media,
+    }
+    return tweetCopy;
+  } else {
+    const tweetCopy : DenormalizedTweet = {
+      id: tweet.id,
+      author: getUserProfile(tweet.authorHandle, currentUserHandle),
+      timestamp: tweet.timestamp,
+      sortedTimestamp: tweet.sortedTimestamp,
+      retweetOf : tweet.retweetOf, //original tweet id
+      retweetFrom : tweet.retweetFrom,
+      isLiked: tweet.likedBy.includes(currentUserHandle),
+      numLikes: tweet.likedBy.length,
+      numRetweets: tweet.retweetedBy.length,
+      isRetweeted: tweet.retweetedBy.includes(currentUserHandle),
+      status: tweet.status,
+      media: tweet.media,
+    }
+    return tweetCopy;
   }
-  return tweetCopy
 }
 
 export const getTweetsFromUser = (userId : string, currentUserHandle : string) : DenormalizedTweet[] => {

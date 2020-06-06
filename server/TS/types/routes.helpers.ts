@@ -1,5 +1,5 @@
 export interface UserProfileType {
-  handle: string,
+  authorHandle: string,
   displayName: string,
   avatarSrc: string,
   bannerSrc: string,

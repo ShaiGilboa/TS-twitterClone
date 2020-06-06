@@ -48,9 +48,9 @@ export const simulateProblems = (res: Response, data: object) : void => {
       return;
     }
 
-    res.json(data);
+    res.status(200).json(data);
   }, delay);
-  res.json(data)
+  // res.json(data)
 }
 
 export const getUser = (handle : string) : UserType => {
@@ -122,14 +122,14 @@ export const duplicateTweetReducer = (tweetsAcc : TweetType[], tweet : TweetType
   return [...tweetsAcc, tweet];
 }
 
-export const getTweetsFroUser = (userId : string, currentUserHandle : string) : DenormalizedTweet[] => {
-  const user : UserType = users[userId];
+export const getTweetsFroUser = (currentUserHandle : string) : DenormalizedTweet[] => {
+  const user : UserType = users[currentUserHandle];
 
   return Object.values(tweets)
     .filter(
       tweet =>
         user.followingIds.includes(tweet.authorHandle.toLowerCase()) ||
-        tweet.authorHandle.toLowerCase() === CURRENT_USER_HANDLE.toLowerCase()
+        tweet.authorHandle.toLowerCase() === currentUserHandle.toLowerCase()
     )
     .reduce(duplicateTweetReducer, [])
     .map(resolveRetweet)

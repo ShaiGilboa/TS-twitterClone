@@ -71,7 +71,7 @@ export interface TweetType {
   authorHandle?: string,
   author?: UserType,
   timestamp: string,
-  sortedTimestamp: string,
+  sortedTimestamp?: string,
   retweetOf? : string, //original tweet id
   retweetFrom? : UserProfileType,
   likedBy: string[],

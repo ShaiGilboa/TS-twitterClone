@@ -16,7 +16,7 @@ import {
   getCurrentUserFromHandle,
   } from "./routes.helpers";
 
-export const router = express.Router()
+const router = express.Router()
   .get('/api/profile/:currentUser/get', (req : express.Request, res : express.Response): express.Response => {
     const currentUser : string = req.params.currentUser;
     const profile : UserProfileType = getUserProfile(currentUser, currentUser);
@@ -84,3 +84,4 @@ export const router = express.Router()
     }
   })
 
+export default router;

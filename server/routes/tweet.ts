@@ -1,7 +1,7 @@
 import lodash from 'lodash';
 import * as express from 'express';
 import { tweets, users, TweetType, UserType } from '../data';
-import { resolveRetweet, denormalizeTweet, simulateProblems } from './routes.helpers';
+import { resolveRetweet, denormalizeTweet, simulateProblems, getUserProfile } from './routes.helpers';
 import { DenormalizedTweet } from '../types/feed';
 import { UserProfileType } from '../types/routes.helpers';
 
@@ -24,7 +24,7 @@ const createTweet = (authorHandle : string, status : string, retweetInfo : retwe
       sortedTimestamp: timestamp,
       status,
       retweetOf: retweetInfo.retweetOf,
-      retweetFrom: retweetInfo.reTweetFrom,
+      retweetFrom: getUserProfile(retweetInfo.originalTweet.authorHandle, authorHandle),
       likedBy: [],
       retweetedBy: [],
       media: [],
@@ -45,11 +45,11 @@ const createTweet = (authorHandle : string, status : string, retweetInfo : retwe
   }
 }
 
-export const router = express.Router()
+const router = express.Router()
   .get('/api/tweet/:currentUserHandle/get/:tweetId', (req : express.Request, res : express.Response) : express.Response => {
     const currentUserHandle : string = req.params.currentUserHandle;
     const tweetId : string = req.params.tweetId;
-    const tweet : TweetType = resolveRetweet(tweets[tweetId])
+    const tweet : TweetType = resolveRetweet(tweets[tweetId], currentUserHandle)
     const denormalizedTweet : DenormalizedTweet = denormalizeTweet(tweet, currentUserHandle);
   return simulateProblems(res, {tweet});
   })
@@ -111,3 +111,5 @@ export const router = express.Router()
     }
     return res.status(209).json({success : true})
   })
+
+export default router;

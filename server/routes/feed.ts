@@ -35,7 +35,7 @@ const formatTweetResponse = (tweets : DenormalizedTweet[]) : FormattedTweets => 
   return {tweetsById, tweetIds}
 }
 
-export const router = express.Router()
+const router = express.Router()
   .get('/api/feed/:currentUser/home-feed', (req : express.Request, res : express.Response) : express.Response => {
     const currentUser : string = req.params.currentUser;
     const relevantTweets : DenormalizedTweet[] = getTweetsFroUser(currentUser)
@@ -53,3 +53,5 @@ export const router = express.Router()
       tweetIds,
     });
   })
+
+  export default router;

@@ -1,8 +1,7 @@
-import {users, tweets, UserType} from '../data';
+import { users, tweets, UserType, TweetType } from '../data';
 import { Response } from 'express';
 import { setTimeout } from 'timers';
 import { UserProfileType } from '../types/routes.helpers';
-import { TweetType } from '../data';
 import { DenormalizedTweet } from '../types/feed';
 import { Duplex } from 'stream';
 
@@ -38,18 +37,17 @@ const transformUserToProfile = (user : UserType, currentUser : UserType) : UserP
   return userProfile;
 }
 
-export const simulateProblems = (res: Response, data: object) : void => {
+export const simulateProblems = (res: Response, data: object) : Response => {
   const delay : number = Math.random() * MAX_DELAY;
-  setTimeout (() => {
+  // setTimeout (() => {
     const shouldError : boolean = Math.random() <= FAILURE_ODDS;
 
     if(shouldError) {
-      res.sendStatus(500)
-      return;
+      return res.status(500).json({message : 'server error'});
     }
 
-    res.status(200).json(data);
-  }, delay);
+    return res.status(200).json(data);
+  // }, delay);
   // res.json(data)
 }
 
@@ -63,19 +61,19 @@ export const getUserProfile = (handle : string, currentUserHandle : string) : Us
     throw new Error('user-not-found');
   }
   // might be an issue when current user is the profile
-  const currentUser : UserType = getCurrentUserFromHandle(CURRENT_USER_HANDLE);
+  const currentUser : UserType = getCurrentUserFromHandle(currentUserHandle);
   const userProfile : UserProfileType = transformUserToProfile(user, currentUser); 
 
   return userProfile;
 }
 
-export const resolveRetweet = (tweet : TweetType) : TweetType => {
+export const resolveRetweet = (tweet : TweetType, currentUserHandle : string) : TweetType => {
   if(!tweet.retweetOf)return tweet;
   const originalTweet : TweetType = tweet[tweet.retweetOf];
   return {
     ...originalTweet,
     id: tweet.id,
-    retweetFrom: getUserProfile(tweet.authorHandle),
+    retweetFrom: getUserProfile(tweet.authorHandle, currentUserHandle),
     sortedTimestamp: tweet.timestamp,
     likedBy: tweet.likedBy,
     retweetedBy: tweet.retweetedBy,
@@ -85,7 +83,7 @@ export const resolveRetweet = (tweet : TweetType) : TweetType => {
 export const denormalizeTweet = (tweet : TweetType, currentUserHandle : string) : DenormalizedTweet => {
   const tweetCopy : DenormalizedTweet = {
     id: tweet.id,
-    author: getUserProfile(tweet.authorHandle),
+    author: getUserProfile(tweet.authorHandle, currentUserHandle),
     timestamp: tweet.timestamp,
     sortedTimestamp: tweet.sortedTimestamp,
     retweetOf : tweet.retweetOf, //original tweet id
@@ -103,7 +101,7 @@ export const denormalizeTweet = (tweet : TweetType, currentUserHandle : string) 
 export const getTweetsFromUser = (userId : string, currentUserHandle : string) : DenormalizedTweet[] => {
   return Object.values(tweets)
     .filter(tweet => tweet.authorHandle.toLowerCase() === userId.toLowerCase())
-    .map(resolveRetweet)
+    .map((tweet : TweetType) => resolveRetweet(tweet, currentUserHandle))
     .map((tweet : TweetType) : DenormalizedTweet => denormalizeTweet(tweet, currentUserHandle));
 }
 
@@ -134,6 +132,6 @@ export const getTweetsFroUser = (currentUserHandle : string) : DenormalizedTweet
         tweet.authorHandle.toLowerCase() === currentUserHandle.toLowerCase()
     )
     .reduce(duplicateTweetReducer, [])
-    .map(resolveRetweet)
+    .map((tweet : TweetType) => resolveRetweet(tweet, currentUserHandle))
     .map((tweet : TweetType) : DenormalizedTweet => denormalizeTweet(tweet, currentUserHandle));
 }

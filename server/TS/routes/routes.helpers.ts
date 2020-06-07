@@ -39,7 +39,7 @@ const transformUserToProfile = (user : UserType, currentUser : UserType) : UserP
 
 export const simulateProblems = (res: Response, data: object) : Response => {
   const delay : number = Math.random() * MAX_DELAY;
-  // setTimeout (() => {
+  setTimeout (() => {
     const shouldError : boolean = Math.random() <= FAILURE_ODDS;
 
     if(shouldError) {
@@ -47,8 +47,8 @@ export const simulateProblems = (res: Response, data: object) : Response => {
     }
 
     return res.status(200).json(data);
-  // }, delay);
-  // res.json(data)
+  }, delay);
+  return res.status(200).json(data)
 }
 
 export const getUser = (handle : string) : UserType => {

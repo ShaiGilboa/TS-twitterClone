@@ -9,7 +9,7 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "lib": ["es6"],
-    "allowJs": true,
+    "allowJs": true, // let's mix JS with TS
     "forceConsistentCasingInFileNames": true,
     "types": ["lodash"]
   },

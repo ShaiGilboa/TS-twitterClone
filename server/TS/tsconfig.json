@@ -1,15 +1,17 @@
 {
   "compilerOptions": {
     "sourceMap": true,
+    "watch" : true, //runs the 'tsc' command on save.
     "module": "commonjs",
     "baseUrl": "./",
     "outDir": "../../server",
-    "target": "es6",
+    "target": "es6", //version of JS
     "moduleResolution": "node",
     "esModuleInterop": true,
     "lib": ["es6"],
     "allowJs": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "types": ["lodash"]
   },
   "include": [
     "./**/*.ts"

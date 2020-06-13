@@ -1,9 +1,9 @@
 import { users, tweets, UserType, TweetType } from '../data';
 import { Response } from 'express';
 import { setTimeout } from 'timers';
-import { UserProfileType } from '../types/routes.helpers';
 import { DenormalizedTweet } from '../types/feed';
 import { Duplex } from 'stream';
+import { UserProfileType } from '../types/routes.helpers';
 
 interface VoidFunction {(): void;}
 

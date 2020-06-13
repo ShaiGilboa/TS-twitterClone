@@ -1,9 +1,13 @@
 import React from 'react';
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/Infobar';
+import Topbar from '../components/Topbar';
 
 const App = () => {
   return (
-    <Sidebar/>
+    <>
+      <Sidebar/>
+      <Topbar />
+    </>
   );
 }
 

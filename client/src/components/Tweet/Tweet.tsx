@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
-const Tweet = () => {
+interface props {
+  
+};
+const Tweet : React.FC<PropsWithChildren<props>> = () => {
 
   return (
     <Wrapper>
@@ -14,4 +17,4 @@ export default Tweet;
 
 const Wrapper = styled.div`
 
-`;
+`

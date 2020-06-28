@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { MEDIA_GATES } from '../../../constants';
 
 interface props {
   Icon: React.FC<React.SVGProps<SVGSVGElement>>,
@@ -11,8 +12,8 @@ const MenuItem : React.FunctionComponent<props>= ({Icon, Title}: props) : JSX.El
   return (
     <Wrapper>
       <Icon />
-      <MenuItemTitle>
-        {Title}
+      <MenuItemTitle data-title={Title}>
+        {/* {Title} */}
       </MenuItemTitle>
     </Wrapper>
   )
@@ -30,5 +31,11 @@ const Wrapper = styled.div`
 const MenuItemTitle = styled.p`
   margin: 0;
   padding: 0;
-  margin-left: 10px;
+
+  @media (min-width: ${MEDIA_GATES.desktop}){
+    margin-left: 10px;
+    &::after {
+      content: attr(data-title);
+    }
+  }
 `;

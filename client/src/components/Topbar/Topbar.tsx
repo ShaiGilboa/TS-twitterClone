@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components';
+import { ReactComponent as LogoSrc } from "../../assets/logo.svg";
 import Search from './Search';
+import { COLORS, MEDIA_GATES } from '../../constants';
 
 interface props {
-  Page: string,
-  Arrow?: React.FC<React.SVGProps<SVGSVGElement>>,
+  style?: React.CSSProperties,
 }
 
-const Topbar = () => {
+const Topbar : React.FC<PropsWithChildren<props>> = () => {
 
   return (
-    <Wrapper>
+    <Wrapper data-css="Topbar">
+      <Logo>
+        <LogoSrc style={{fill:`${COLORS.main}`}} />
+      </Logo>
       Topbar
-      <Search title='test'/>
+      <Search title='test' style={{flex:'1'}}/>
     </Wrapper>
   )
 }
@@ -20,5 +24,17 @@ const Topbar = () => {
 export default Topbar;
 
 const Wrapper = styled.div`
+  grid-area: 'Topbar';
+  display: flex;
+  align-items: center;
+`;
 
+const Logo = styled.div`
+  fill: ${COLORS.main};
+  width: 40px;
+  height: 40px;
+
+  @media (min-width: ${MEDIA_GATES.tablet}) {
+    display: none;
+  }
 `;

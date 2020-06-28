@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components';
-import { ReactComponent as Logo } from "../../assets/logo.svg";
+import { ReactComponent as LogoSrc } from "../../assets/logo.svg";
 import {ReactComponent as HomeIcon} from '../../assets/MenuIcons/Home.svg';
 import {ReactComponent as ProfileIcon} from '../../assets/MenuIcons/Profile.svg';
-import { COLORS } from '../../constants';
+import { COLORS, MEDIA_GATES, SIZES } from '../../constants';
 import MenuItem from './MenuItem/MenuItem';
+import UnstyledButton from '../../UI/UstyledButton';
 
-const Infobar = () => {
+interface props {
+  style?: React.CSSProperties,
+};
+
+const Infobar : React.FC<PropsWithChildren<props>>= () => {
 
   return (
-    <Wrapper>
-      <div style={{width:'40px'}}>
-        <Logo style={{fill:COLORS.main}}/>
-      </div>
+    <Wrapper data-css="Infobar">
+      <Logo>
+        <LogoSrc style={{fill:COLORS.main}}/>
+      </Logo>
       <Menu>
         <MenuItem Icon={HomeIcon} Title='Home' />
         <MenuItem Icon={ProfileIcon} Title='Profile' />
@@ -28,22 +33,87 @@ export default Infobar ;
 
 const Wrapper = styled.div`
   height: 100%;
-  width: 100px;
-  padding: 10px 10px;
-  margin: 0;
+  display: flex;
+  padding: 5px;
+  align-items: center;
+  @media (min-width: ${MEDIA_GATES.tablet}) {
+    flex-direction: column;
+    width: 100px;
+    padding: 10px 10px;
+    margin: 0 0 0 auto;
+    /* justify-content: right; */
+    margin: 0 0 0 auto;
+
+  }
 `;
 
 const Menu = styled.div`
-  height: 100%;
+  height: fit-content;
+  display: flex;
+  /* justify-content: start; */
+  justify-content: space-around;
+  flex: 2;
+  @media (min-width: ${MEDIA_GATES.tablet}) {
+    flex-direction: column;
+    /* justify-content: end; */
+    /* background-color: red; */
+    margin: 0 0 0 auto;
+  }
+
+  @media (min-width: ${MEDIA_GATES.desktop}) {
+    /* flex-direction: column; */
+    /* justify-content: end; */
+    /* background-color: red; */
+    margin: 0 auto 0 0;
+    width: 100%;
+  }
 `;
 
-const HopButton = styled.button`
+const HopButton = styled(UnstyledButton)`
   margin: 5px;
+  padding: 3px 0;
   width: 100%;
   border-radius: 15px;
   background-color: ${COLORS.main};
   color: ${COLORS.text};
+  flex: 1;
   &:focus-within  {
     outline:none;
+  }
+
+  @media (min-width: ${MEDIA_GATES.tablet}) {
+    /* flex-direction: column; */
+    /* justify-content: end; */
+    /* background-color: red; */
+    margin: 0 0 0 auto;
+    width: ${SIZES.item}
+  }
+
+  @media (min-width: ${MEDIA_GATES.desktop}) {
+    /* flex-direction: column; */
+    /* justify-content: end; */
+    /* background-color: red; */
+    margin: 0 0 0 auto;
+    width: 100%;
+  }
+`;
+
+const Logo = styled.div`
+  fill: ${COLORS.main};
+  display: none;
+
+  @media (min-width: ${MEDIA_GATES.tablet}) {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 0 0 0 auto;
+  }
+
+  @media (min-width: ${MEDIA_GATES.desktop}) {
+    /* flex-direction: column; */
+    /* justify-content: end; */
+    /* background-color: red; */
+    margin: 0 auto 0 0;
+    /* width: 100%; */
   }
 `;

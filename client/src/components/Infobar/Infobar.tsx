@@ -9,6 +9,7 @@ import UnstyledButton from '../../UI/UstyledButton';
 
 interface props {
   style?: React.CSSProperties,
+  className?: string,
 };
 
 const Infobar : React.FC<PropsWithChildren<props>>= () => {
@@ -32,6 +33,8 @@ const Infobar : React.FC<PropsWithChildren<props>>= () => {
 export default Infobar ;
 
 const Wrapper = styled.div`
+  box-sizing: border-box;
+  grid-area: Infobar;
   height: 100%;
   display: flex;
   padding: 5px;
@@ -41,13 +44,14 @@ const Wrapper = styled.div`
     width: 100px;
     padding: 10px 10px;
     margin: 0 0 0 auto;
+    height: fit-content;
     /* justify-content: right; */
-    margin: 0 0 0 auto;
+    /* margin: 0 0 0 auto; */
 
   }
 `;
 
-const Menu = styled.div`
+const Menu = styled.ul`
   height: fit-content;
   display: flex;
   /* justify-content: start; */
@@ -57,13 +61,13 @@ const Menu = styled.div`
     flex-direction: column;
     /* justify-content: end; */
     /* background-color: red; */
-    margin: 0 0 0 auto;
+    margin: 0 auto 0 auto;
+    & > li {
+      padding: 10px 0;
+    }
   }
 
   @media (min-width: ${MEDIA_GATES.desktop}) {
-    /* flex-direction: column; */
-    /* justify-content: end; */
-    /* background-color: red; */
     margin: 0 auto 0 0;
     width: 100%;
   }
@@ -74,6 +78,7 @@ const HopButton = styled(UnstyledButton)`
   padding: 3px 0;
   width: 100%;
   border-radius: 15px;
+  max-height: ${SIZES.item};
   background-color: ${COLORS.main};
   color: ${COLORS.text};
   flex: 1;
@@ -83,9 +88,9 @@ const HopButton = styled(UnstyledButton)`
 
   @media (min-width: ${MEDIA_GATES.tablet}) {
     /* flex-direction: column; */
-    /* justify-content: end; */
+    /* justify-content: center; */
     /* background-color: red; */
-    margin: 0 0 0 auto;
+    margin: 0 auto 0 auto;
     width: ${SIZES.item}
   }
 
@@ -106,7 +111,7 @@ const Logo = styled.div`
     display: block;
     width: 40px;
     height: 40px;
-    margin: 0 0 0 auto;
+    margin: 0 auto 0 auto;
   }
 
   @media (min-width: ${MEDIA_GATES.desktop}) {

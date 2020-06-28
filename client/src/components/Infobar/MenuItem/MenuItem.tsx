@@ -21,7 +21,7 @@ const MenuItem : React.FunctionComponent<props>= ({Icon, Title}: props) : JSX.El
 
 export default MenuItem;
 
-const Wrapper = styled.div`
+const Wrapper = styled.li`
   margin: 5px 0;
   height: 30px;
   display: flex;

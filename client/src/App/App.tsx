@@ -4,16 +4,25 @@ import Infobar from '../components/Infobar';
 import Topbar from '../components/Topbar';
 import { MEDIA_GATES, SIZES } from '../constants';
 import GlobalStyle from '../GlobalStyle';
+// import './styles.css';
 
 const App = () => {
   
 
   return (
-    <GridContainer>
+    <GridContainer 
+    // className={'gridContainter'} 
+    >
       <GlobalStyle />
-      <Topbar style={{gridArea: 'Topbar'}}/>
+      <Topbar
+      // className={'Topbar'} 
+      // style={{gridArea: 'Topbar'}}
+      />
       <Content/>
-      <Infobar style={{gridArea: 'Infobar'}}/>
+      <Infobar
+      // className={'Infobar'} 
+      // style={{gridArea: 'Infobar'}}
+      />
       {/* <Extra /> */}
     </GridContainer>
   );
@@ -29,15 +38,16 @@ const GridContainer = styled.div`
   grid-template-areas:
   "Topbar"
   "content"
-  "Infobar";
-  
+  "Infobar"
+  ;
+
   @media (min-width: ${MEDIA_GATES.tablet}) {
   grid-auto-columns: 1fr 3fr 1fr;
   grid-template-rows: ${SIZES.Topbar} auto ;
   grid-template-areas:
-  "Infobar Topbar extra"
+  "empty Topbar extra"
   "Infobar content extra"
-  "Infobar content extra";
+  "none content extra";
   }
 
   @media (min-width: ${MEDIA_GATES.desktop}) {

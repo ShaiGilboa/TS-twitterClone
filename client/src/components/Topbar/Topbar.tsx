@@ -6,6 +6,7 @@ import { COLORS, MEDIA_GATES } from '../../constants';
 
 interface props {
   style?: React.CSSProperties,
+  className?: string,
 }
 
 const Topbar : React.FC<PropsWithChildren<props>> = () => {
@@ -24,9 +25,11 @@ const Topbar : React.FC<PropsWithChildren<props>> = () => {
 export default Topbar;
 
 const Wrapper = styled.div`
-  grid-area: 'Topbar';
+  box-sizing: border-box;
+  grid-area: Topbar;
   display: flex;
   align-items: center;
+  padding: 5px;
 `;
 
 const Logo = styled.div`

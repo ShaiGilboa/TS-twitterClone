@@ -9,7 +9,7 @@ interface VoidFunction {(): void;}
 
 // HARDCODED CURRENT USER. for now....
 export const CURRENT_USER_HANDLE : string = 'treasurymog';
-const MAX_DELAY : number = 2000;
+const MAX_DELAY : number = 2;
 const FAILURE_ODDS : number = 0.000000000001;
 // const FAILURE_ODDS : number = 0.2;
 
@@ -37,7 +37,7 @@ const transformUserToProfile = (user : UserType, currentUser : UserType) : UserP
   return userProfile;
 }
 
-export const simulateProblems = (res: Response, data: object) : Response => {
+export const simulateProblems = (res: Response, data: object) : void => {
   const delay : number = Math.random() * MAX_DELAY;
   setTimeout (() => {
     const shouldError : boolean = Math.random() <= FAILURE_ODDS;
@@ -46,9 +46,9 @@ export const simulateProblems = (res: Response, data: object) : Response => {
       return res.status(500).json({message : 'server error'});
     }
 
-    return res.status(200).json(data);
+    res.status(200).json(data);
   }, delay);
-  return res.status(200).json(data)
+  // res.status(200).json(data)
 }
 
 export const getUser = (handle : string) : UserType => {

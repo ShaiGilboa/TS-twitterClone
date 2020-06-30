@@ -46,19 +46,19 @@ const createTweet = (authorHandle : string, status : string, retweetInfo : retwe
 }
 
 const router = express.Router()
-  .get('/api/tweet/:currentUserHandle/get/:tweetId', (req : express.Request, res : express.Response) : express.Response => {
+  .get('/api/tweet/:currentUserHandle/get/:tweetId', (req : express.Request, res : express.Response) : void => {
     const currentUserHandle : string = req.params.currentUserHandle;
     const tweetId : string = req.params.tweetId;
     const tweet : TweetType = resolveRetweet(tweets[tweetId], currentUserHandle)
     const denormalizedTweet : DenormalizedTweet = denormalizeTweet(tweet, currentUserHandle);
-  return simulateProblems(res, {tweet});
+    simulateProblems(res, {tweet});
   })
-  .post('/api/tweet', (req : express.Request, res : express.Response) : express.Response => {
+  .post('/api/tweet', (req : express.Request, res : express.Response) : void => {
     const authorHandle : string = req.body.handle;
     const status : string = req.body.status;
     const newTweet : TweetType = createTweet(authorHandle, status, {isRetweet : false})
     tweets[newTweet.id] = newTweet;
-    return simulateProblems(res, {tweet : newTweet})
+    simulateProblems(res, {tweet : newTweet})
   })
   .put('/api/tweet/:currentUserHandle/like/:tweetId', (req : express.Request, res : express.Response) : express.Response => {
     const currentUserHandle : string = req.params.currentUserHandle;

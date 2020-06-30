@@ -2,9 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getTweetsFroUser = exports.duplicateTweetReducer = exports.getTweetsFromUser = exports.denormalizeTweet = exports.resolveRetweet = exports.getUserProfile = exports.getUser = exports.simulateProblems = exports.getCurrentUserFromHandle = exports.CURRENT_USER_HANDLE = void 0;
 const data_1 = require("../data");
+const timers_1 = require("timers");
 // HARDCODED CURRENT USER. for now....
 exports.CURRENT_USER_HANDLE = 'treasurymog';
-const MAX_DELAY = 2000;
+const MAX_DELAY = 2;
 const FAILURE_ODDS = 0.000000000001;
 // const FAILURE_ODDS : number = 0.2;
 exports.getCurrentUserFromHandle = (handle) => {
@@ -30,14 +31,14 @@ const transformUserToProfile = (user, currentUser) => {
 };
 exports.simulateProblems = (res, data) => {
     const delay = Math.random() * MAX_DELAY;
-    // setTimeout (() => {
-    const shouldError = Math.random() <= FAILURE_ODDS;
-    if (shouldError) {
-        return res.status(500).json({ message: 'server error' });
-    }
-    return res.status(200).json(data);
-    // }, delay);
-    // res.json(data)
+    timers_1.setTimeout(() => {
+        const shouldError = Math.random() <= FAILURE_ODDS;
+        if (shouldError) {
+            return res.status(500).json({ message: 'server error' });
+        }
+        res.status(200).json(data);
+    }, delay);
+    // res.status(200).json(data)
 };
 exports.getUser = (handle) => {
     return data_1.users[handle.toLowerCase()];

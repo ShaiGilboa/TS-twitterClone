@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Infobar from '../components/Infobar';
 import Topbar from '../components/Topbar';
 import { MEDIA_GATES, SIZES } from '../constants';
 import GlobalStyle from '../GlobalStyle';
-// import './styles.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../Redux/store';
+import { setUserHomeFeed } from '../Redux/actions';
 
 const App = () => {
-  
+  const dispatch = useDispatch();
+  const user = useSelector((state : RootState) => state.user)
+  console.log('user', user)
+  useEffect(()=>{
+    fetch('/api/feed/treasurymog/home-feed')
+      .then(res=>res.json())
+      .then(res=>{
+        console.log('res', res)
+        dispatch(setUserHomeFeed(res))
+      })
+
+  },[])
 
   return (
     <GridContainer 

@@ -17,22 +17,22 @@ import {
   } from "./routes.helpers";
 
 const router = express.Router()
-  .get('/api/profile/:currentUser/get', (req : express.Request, res : express.Response): express.Response => {
+  .get('/api/profile/:currentUser/get', (req : express.Request, res : express.Response): void => {
     const currentUser : string = req.params.currentUser;
     const profile : UserProfileType = getUserProfile(currentUser, currentUser);
 
-    return simulateProblems(res, {profile});
+    simulateProblems(res, {profile});
   })
 
-  .get('/api/profile/:currentUser/other/:handle', (req : express.Request, res : express.Response) : express.Response => {
+  .get('/api/profile/:currentUser/other/:handle', (req : express.Request, res : express.Response) : void => {
     const currentUser : string = req.params.currentUser;
     const handle : string = req.params.handle;
     try {
       const profile : UserProfileType = getUserProfile(handle, currentUser);
-      return simulateProblems(res, {profile})
+      simulateProblems(res, {profile})
     } catch (err) {
       if(err.message === 'user-not-found') {
-        return res.status(400).json({error: 'user-not-found'})
+        res.status(400).json({error: 'user-not-found'})
       }
     }
   }

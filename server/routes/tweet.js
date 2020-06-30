@@ -60,14 +60,14 @@ const router = express.Router()
     const tweetId = req.params.tweetId;
     const tweet = routes_helpers_1.resolveRetweet(data_1.tweets[tweetId], currentUserHandle);
     const denormalizedTweet = routes_helpers_1.denormalizeTweet(tweet, currentUserHandle);
-    return routes_helpers_1.simulateProblems(res, { tweet });
+    routes_helpers_1.simulateProblems(res, { tweet });
 })
     .post('/api/tweet', (req, res) => {
     const authorHandle = req.body.handle;
     const status = req.body.status;
     const newTweet = createTweet(authorHandle, status, { isRetweet: false });
     data_1.tweets[newTweet.id] = newTweet;
-    return routes_helpers_1.simulateProblems(res, { tweet: newTweet });
+    routes_helpers_1.simulateProblems(res, { tweet: newTweet });
 })
     .put('/api/tweet/:currentUserHandle/like/:tweetId', (req, res) => {
     const currentUserHandle = req.params.currentUserHandle;

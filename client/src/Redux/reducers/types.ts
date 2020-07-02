@@ -13,7 +13,7 @@ export interface reduxAction {
 
 export interface userHomeFeed {
   tweetIds : string[],
-  tweetById : TweetsInFeed
+  tweetsById : TweetsInFeed
 }
 
 export interface SetUserHomeFeedAction {

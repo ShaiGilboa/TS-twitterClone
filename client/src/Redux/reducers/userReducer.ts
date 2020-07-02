@@ -1,7 +1,7 @@
 import produce from 'immer';
 import { userState, reduxAction } from './types';
 
-const initialState = {
+const initialState : userState = {
   status: 'idle', /*  -'loggind-in'
                       -'idle'
                       -'signing-in'

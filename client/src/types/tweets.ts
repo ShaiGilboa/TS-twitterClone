@@ -1,6 +1,6 @@
 export interface DenormalizedTweet {
   id: string,
-  author?: UserProfileType,
+  author: UserProfileType,
   timestamp: string,
   sortedTimestamp: string,
   retweetOf? : string, //original tweet id

@@ -13,5 +13,5 @@ const HomeFeed = () => {
 export default HomeFeed;
 
 const Wrapper = styled.div`
-
+  grid-area: feed;
 `;

@@ -7,6 +7,7 @@ import GlobalStyle from '../GlobalStyle';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../Redux/store';
 import { setUserHomeFeed } from '../Redux/actions';
+import HomeFeed from '../pages/HomeFeed';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,8 @@ const App = () => {
       // className={'Topbar'} 
       // style={{gridArea: 'Topbar'}}
       />
-      <Content/>
+      <HomeFeed />
+      {/* <Content/> */}
       <Infobar
       // className={'Infobar'} 
       // style={{gridArea: 'Infobar'}}
@@ -50,7 +52,7 @@ const GridContainer = styled.div`
   grid-template-rows: ${SIZES.Topbar} auto ${SIZES.Topbar};
   grid-template-areas:
   "Topbar"
-  "content"
+  "feed"
   "Infobar"
   ;
 
@@ -59,17 +61,13 @@ const GridContainer = styled.div`
   grid-template-rows: ${SIZES.Topbar} auto ;
   grid-template-areas:
   "empty Topbar extra"
-  "Infobar content extra"
-  "none content extra";
+  "Infobar feed extra"
+  "none feed extra";
   }
 
   @media (min-width: ${MEDIA_GATES.desktop}) {
 
   }
-`;
-
-const Content = styled.div`
-  grid-area: content;
 `;
 
 const Extra = styled.div`

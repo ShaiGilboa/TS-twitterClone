@@ -34,6 +34,7 @@ export default Infobar ;
 
 const Wrapper = styled.div`
   box-sizing: border-box;
+  border-top: 2px solid ${COLORS.border};
   grid-area: Infobar;
   height: 100%;
   display: flex;
@@ -54,6 +55,7 @@ const Wrapper = styled.div`
 const Menu = styled.ul`
   height: fit-content;
   display: flex;
+  
   /* justify-content: start; */
   justify-content: space-around;
   flex: 2;

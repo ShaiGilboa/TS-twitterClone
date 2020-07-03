@@ -268,5 +268,4 @@ exports.tweets = {
         ],
     },
 };
-// console.log('tweets', tweets);
 //# sourceMappingURL=data.js.map

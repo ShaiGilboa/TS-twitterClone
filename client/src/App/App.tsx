@@ -12,12 +12,10 @@ import HomeFeed from '../pages/HomeFeed';
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state : RootState) => state.user)
-  console.log('user', user)
   useEffect(()=>{
     fetch('/api/feed/treasurymog/home-feed')
       .then(res=>res.json())
       .then(res=>{
-        console.log('res', res)
         dispatch(setUserHomeFeed(res))
       })
 

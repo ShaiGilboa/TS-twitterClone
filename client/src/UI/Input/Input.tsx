@@ -7,6 +7,8 @@ interface props {
   iconSrc?: string,
   iconAlt?: string,
   clearButton: boolean,
+  onFocus?: React.FocusEvent,
+  onBlur?: React.FocusEvent,
 }
 
 interface colorProp {

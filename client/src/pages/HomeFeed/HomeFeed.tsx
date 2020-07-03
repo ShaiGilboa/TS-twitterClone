@@ -8,12 +8,10 @@ import { userHomeFeed, userState } from '../../Redux/reducers/types';
 const HomeFeed = () => {
 
   const feed = useSelector<RootState, userHomeFeed | null>(state => state.user.homeFeed)
-  useEffect(()=>{
-    console.log('feed', feed)
-  },[feed])
+
   return (
     <Wrapper>
-      {feed && <Tweet {...feed.tweetsById[feed.tweetIds[0]]}/>}
+      {feed && feed.tweetIds.map(id => <Tweet key={id} {...feed.tweetsById[id]}/>)}
     </Wrapper>
   )
 }
@@ -22,4 +20,5 @@ export default HomeFeed;
 
 const Wrapper = styled.div`
   grid-area: feed;
+  overflow-y: auto;
 `;

@@ -69,11 +69,12 @@ export const getUserProfile = (handle : string, currentUserHandle : string) : Us
 
 export const resolveRetweet = (tweet : TweetType, currentUserHandle : string) : TweetType => {
   if(!tweet.retweetOf)return tweet;
-  const originalTweet : TweetType = tweet[tweet.retweetOf];
+  const originalTweet : TweetType = tweets[tweet.retweetOf];
   return {
     ...originalTweet,
     id: tweet.id,
     retweetFrom: getUserProfile(tweet.authorHandle, currentUserHandle),
+    retweetOf: tweet.retweetOf,
     sortedTimestamp: tweet.timestamp,
     likedBy: tweet.likedBy,
     retweetedBy: tweet.retweetedBy,

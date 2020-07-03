@@ -39,7 +39,6 @@ const formatTweetResponse = (tweets) => {
 const router = express.Router()
     .get('/api/feed/:currentUser/home-feed', (req, res) => {
     const currentUser = req.params.currentUser;
-    console.log('currentUser', currentUser);
     const relevantTweets = routes_helpers_1.getTweetsFroUser(currentUser);
     const { tweetsById, tweetIds } = formatTweetResponse(relevantTweets);
     return routes_helpers_1.simulateProblems(res, { tweetsById, tweetIds });

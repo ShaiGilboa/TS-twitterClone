@@ -4,6 +4,7 @@ export enum COLORS {
   main = '#FFADAD',
   text = '#4E7E82',
   background = '#FDDBFD',
+  border = '#dcdcdc',
 }
 
 export enum MEDIA_GATES {

@@ -1,6 +1,8 @@
 import React, { PropsWithChildren } from 'react';
 import { MediaType, DenormalizedTweet, UserProfileType} from '../../types/tweets'
 import styled from 'styled-components';
+import MediaItem from './sections/MediaItem';
+import Actions from './sections/Actions';
 
 interface props {
   id: string,
@@ -30,25 +32,24 @@ const Tweet : React.FC<PropsWithChildren<DenormalizedTweet>> = ({
   status,
   media,
 }) => {
-
   return (
     <Wrapper>
         <Avatar src={author.avatarSrc} alt={`${author.authorHandle}-image`} />
-        <DisplayName>{author.displayName}</DisplayName>
-        <Handle>@{author.authorHandle}</Handle>
-        <Time>{sortedTimestamp}</Time>
+        <Info>
+          <DisplayName>{author.displayName}</DisplayName>
+          <Handle>@{author.authorHandle}</Handle>
+          <Time>{sortedTimestamp}</Time>
+        </Info>
         <Content>
-          {status}
-          {media && <div>{media}</div>}
+          {status} 
+          {media && <div>{media.map(item=><MediaItem key={item.url} {...item}/>)}</div>}
         </Content>
-        <Footer>
-          isLiked:{isLiked}
-          numLikes:{numLikes}
-          numRetweets:{numRetweets}
-          isRetweeted:{isRetweeted}
-          {/* retweetFrom:{retweetFrom} */}
-        </Footer>
-      Tweet
+        <Actions
+          isLiked={isLiked}
+          numLikes={numLikes}
+          numRetweets={numRetweets}
+          isRetweeted={isRetweeted}
+        />
     </Wrapper>
   )
 }
@@ -57,18 +58,22 @@ export default Tweet;
 
 const Wrapper = styled.div`
   display: grid;
-  /* flex-direction: column; */
-  grid-auto-columns: 1fr;
-  grid-auto-rows: 1fr;
+  grid-auto-columns: 55px min-content min-content auto;
+  grid-auto-rows: 15px max-content 30px;
   grid-template-areas:
-    'retweet retweet retweet retweet'
-    'Avatar displayName handle time'
+    'Avatar Info Info Info'
     'Avatar content content content'
-    'Avatar footer footer footer';
+    'Avatar actions actions actions';
   width: 100%;
-  height: 100%;
+  height: fit-content;
   padding: 10px;
-  box-sizing: border-box;
+  box-sizing: border-box;  
+`
+
+const Info = styled.div`
+  grid-area: Info;
+  display: flex;
+  
 `
 
 const Retweet = styled.div`
@@ -79,14 +84,20 @@ const Retweet = styled.div`
 
 const Avatar = styled.img`
   grid-area: Avatar;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 50%;
+  padding: 7px;
 `
 
 const DisplayName = styled.h2`
   grid-area: displayName;
+  padding: 0 5px;
 `;
 
 const Handle = styled.h3`
   grid-area: handle;
+  padding: 0 5px;
 `
 
 const Time = styled.p`
@@ -95,8 +106,6 @@ const Time = styled.p`
 
 const Content = styled.div`
   grid-area: content;
-`
-
-const Footer = styled.div`
-  grid-area: footer;
+  height: fit-content;
+  padding: 5px;
 `

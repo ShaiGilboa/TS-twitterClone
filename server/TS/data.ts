@@ -326,5 +326,4 @@ export const tweets : TweetsDBType = {
   },
 }
 
-// console.log('tweets', tweets);
 

@@ -16,8 +16,7 @@ const Topbar : React.FC<PropsWithChildren<props>> = () => {
       <Logo>
         <LogoSrc style={{fill:`${COLORS.main}`}} />
       </Logo>
-      Topbar
-      <Search title='test' style={{flex:'1'}}/>
+      <Search title='' style={{flex:'1'}}/>
     </Wrapper>
   )
 }
@@ -27,7 +26,9 @@ export default Topbar;
 const Wrapper = styled.div`
   box-sizing: border-box;
   grid-area: Topbar;
+  border-bottom: 2px solid ${COLORS.border};
   display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: 5px;
 `;

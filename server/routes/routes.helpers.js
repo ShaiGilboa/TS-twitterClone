@@ -56,8 +56,8 @@ exports.getUserProfile = (handle, currentUserHandle) => {
 exports.resolveRetweet = (tweet, currentUserHandle) => {
     if (!tweet.retweetOf)
         return tweet;
-    const originalTweet = tweet[tweet.retweetOf];
-    return Object.assign(Object.assign({}, originalTweet), { id: tweet.id, retweetFrom: exports.getUserProfile(tweet.authorHandle, currentUserHandle), sortedTimestamp: tweet.timestamp, likedBy: tweet.likedBy, retweetedBy: tweet.retweetedBy });
+    const originalTweet = data_1.tweets[tweet.retweetOf];
+    return Object.assign(Object.assign({}, originalTweet), { id: tweet.id, retweetFrom: exports.getUserProfile(tweet.authorHandle, currentUserHandle), retweetOf: tweet.retweetOf, sortedTimestamp: tweet.timestamp, likedBy: tweet.likedBy, retweetedBy: tweet.retweetedBy });
 };
 exports.denormalizeTweet = (tweet, currentUserHandle) => {
     if (tweet.retweetFrom) {

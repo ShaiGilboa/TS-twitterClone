@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import iconSrc from './assets/icon.png';
 import { COLORS } from '../../../constants';
@@ -9,18 +9,21 @@ interface props {
 }
 const Search = ({title} : props) => {
   const [term, setTerm] = React.useState('');
+  const [focus, setFocus] = useState<boolean>(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
   const submitHandler = (event : React.FormEvent<HTMLFormElement>) : void => {
     event.preventDefault();
-    console.log(term)
   }
-
+  useEffect(()=>{
+    console.log('focus', focus)
+  },[focus])
   return (
     <Wrapper
       onSubmit={submitHandler}
     >
       {title && <Title>{title}</Title>}
-      <Input backgroundColor={COLORS.background} mainColor={COLORS.main} iconSrc={iconSrc} iconAlt={'magnifying-glass'} clearButton={true}/>
+      <StyledInput backgroundColor={COLORS.background} mainColor={COLORS.main} iconSrc={iconSrc} iconAlt={'magnifying-glass'} clearButton={true}
+      />
     </Wrapper>
   )
 }
@@ -28,11 +31,23 @@ const Search = ({title} : props) => {
 export default Search;
 
 const Wrapper = styled.form`
-  width: 100%;
+  width: 60%;
+  transition: width 0.5s ease-in-out;
   height: fit-content;
   display: flex;
   align-items: center;
+  padding: 0 10px;
+  &:focus-within {
+    width: 100%;
+  }
 `;
+
+const StyledInput = styled(Input)`
+  /* width: 60%; */
+  /* &:active{
+    flex:1;
+  } */
+`
 
 const Title = styled.h2`
   margin: 0;

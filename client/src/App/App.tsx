@@ -1,5 +1,11 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+  } from 'react-router-dom';
+
 import Infobar from '../components/Infobar';
 import Topbar from '../components/Topbar';
 import { MEDIA_GATES, SIZES } from '../constants';
@@ -8,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../Redux/store';
 import { setUserHomeFeed } from '../Redux/actions';
 import HomeFeed from '../pages/HomeFeed';
+import MobileComposeTweet from '../pages/MobileComposeTweet';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -22,21 +29,20 @@ const App = () => {
   },[])
 
   return (
-    <GridContainer 
-    // className={'gridContainter'} 
-    >
+    <GridContainer>
       <GlobalStyle />
-      <Topbar
-      // className={'Topbar'} 
-      // style={{gridArea: 'Topbar'}}
-      />
-      <HomeFeed />
-      {/* <Content/> */}
-      <Infobar
-      // className={'Infobar'} 
-      // style={{gridArea: 'Infobar'}}
-      />
-      {/* <Extra /> */}
+      <Topbar />
+      <Infobar />
+      <Router>
+        <Switch>
+          <Route path='/' exact>
+            <HomeFeed />
+          </Route>
+          <Route path='/compose' exact>
+            <MobileComposeTweet />
+          </Route>
+        </Switch>
+      </Router>
     </GridContainer>
   );
 }

@@ -6,6 +6,7 @@ import {ReactComponent as ProfileIcon} from '../../assets/MenuIcons/Profile.svg'
 import { COLORS, MEDIA_GATES, SIZES } from '../../constants';
 import MenuItem from './MenuItem/MenuItem';
 import UnstyledButton from '../../UI/UstyledButton';
+import { useHistory } from 'react-router-dom';
 
 interface props {
   style?: React.CSSProperties,
@@ -13,6 +14,16 @@ interface props {
 };
 
 const Infobar : React.FC<PropsWithChildren<props>>= () => {
+  let history = useHistory();
+  console.log('useHistory()', useHistory())
+  const ComposeHop = (innerWidth : number) => {
+    if (innerWidth < parseInt(MEDIA_GATES.tablet)){
+      console.log('history', history)
+      history?.push('/compose')
+    } else {
+      // tweet modal
+    }
+  }
 
   return (
     <Wrapper data-css="Infobar">
@@ -23,7 +34,9 @@ const Infobar : React.FC<PropsWithChildren<props>>= () => {
         <MenuItem Icon={HomeIcon} Title='Home' />
         <MenuItem Icon={ProfileIcon} Title='Profile' />
       </Menu>
-      <HopButton>
+      <HopButton
+        onClick={()=>ComposeHop(window.innerWidth)}
+      >
         Hop
       </HopButton>
     </Wrapper>
@@ -46,23 +59,16 @@ const Wrapper = styled.div`
     padding: 10px 10px;
     margin: 0 0 0 auto;
     height: fit-content;
-    /* justify-content: right; */
-    /* margin: 0 0 0 auto; */
-
   }
 `;
 
 const Menu = styled.ul`
   height: fit-content;
   display: flex;
-  
-  /* justify-content: start; */
   justify-content: space-around;
   flex: 2;
   @media (min-width: ${MEDIA_GATES.tablet}) {
     flex-direction: column;
-    /* justify-content: end; */
-    /* background-color: red; */
     margin: 0 auto 0 auto;
     & > li {
       padding: 10px 0;
@@ -89,17 +95,11 @@ const HopButton = styled(UnstyledButton)`
   }
 
   @media (min-width: ${MEDIA_GATES.tablet}) {
-    /* flex-direction: column; */
-    /* justify-content: center; */
-    /* background-color: red; */
     margin: 0 auto 0 auto;
     width: ${SIZES.item}
   }
 
   @media (min-width: ${MEDIA_GATES.desktop}) {
-    /* flex-direction: column; */
-    /* justify-content: end; */
-    /* background-color: red; */
     margin: 0 0 0 auto;
     width: 100%;
   }
@@ -117,10 +117,6 @@ const Logo = styled.div`
   }
 
   @media (min-width: ${MEDIA_GATES.desktop}) {
-    /* flex-direction: column; */
-    /* justify-content: end; */
-    /* background-color: red; */
     margin: 0 auto 0 0;
-    /* width: 100%; */
   }
 `;

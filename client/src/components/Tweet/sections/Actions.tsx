@@ -28,7 +28,7 @@ const Actions : React.FC<PropsWithChildren<props>> = ({ isLiked, isRetweeted, nu
   return (
     <Wrapper data-css='Actions'>
       {actions.map((action : keyof typeof PATHS, index : number) =>
-        <ActionBtn actionColor={ACTIONS_COLORS[action]}>
+        <ActionBtn actionColor={ACTIONS_COLORS[action]} key={`${index}${action}`}>
           <TweetActionIcon key={index} kind={action} size={24}/>
         </ActionBtn>
         )}

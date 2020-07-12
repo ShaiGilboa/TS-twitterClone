@@ -25,7 +25,7 @@ const router = express.Router()
     .get('/api/profile/:currentUser/get', (req, res) => {
     const currentUser = req.params.currentUser;
     const profile = routes_helpers_1.getUserProfile(currentUser, currentUser);
-    routes_helpers_1.simulateProblems(res, { profile });
+    routes_helpers_1.simulateProblems(res, profile);
 })
     .get('/api/profile/:currentUser/other/:handle', (req, res) => {
     const currentUser = req.params.currentUser;

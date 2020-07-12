@@ -8,7 +8,7 @@ const initialState : userState = {
                       -'logged-on'
                   */
   homeFeed: null,
-
+  profile: null,
 }
 
 
@@ -22,7 +22,10 @@ const appReducer = (state: userState = initialState, action: reduxAction) : user
       return produce(state, draftState => {
         draftState.status = 'idle';
       });
-  
+    case 'SET_USER_PROFILE':
+      return produce(state, draftState => {
+        draftState.profile = action.profile;
+      })
     default:
       return state;
   }

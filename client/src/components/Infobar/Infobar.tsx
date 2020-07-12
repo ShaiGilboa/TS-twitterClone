@@ -15,14 +15,8 @@ interface props {
 
 const Infobar : React.FC<PropsWithChildren<props>>= () => {
   let history = useHistory();
-  console.log('useHistory()', useHistory())
-  const ComposeHop = (innerWidth : number) => {
-    if (innerWidth < parseInt(MEDIA_GATES.tablet)){
-      console.log('history', history)
+  const ComposeHop = () => {
       history?.push('/compose')
-    } else {
-      // tweet modal
-    }
   }
 
   return (
@@ -35,7 +29,7 @@ const Infobar : React.FC<PropsWithChildren<props>>= () => {
         <MenuItem Icon={ProfileIcon} Title='Profile' />
       </Menu>
       <HopButton
-        onClick={()=>ComposeHop(window.innerWidth)}
+        onClick={()=>ComposeHop()}
       >
         Hop
       </HopButton>

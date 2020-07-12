@@ -12,9 +12,9 @@ import { MEDIA_GATES, SIZES } from '../constants';
 import GlobalStyle from '../GlobalStyle';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../Redux/store';
-import { setUserHomeFeed } from '../Redux/actions';
+import { setUserHomeFeed, setUserProfile } from '../Redux/actions';
 import HomeFeed from '../pages/HomeFeed';
-import MobileComposeTweet from '../pages/MobileComposeTweet';
+import ComposeTweet from '../pages/ComposeTweet';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -23,23 +23,30 @@ const App = () => {
     fetch('/api/feed/treasurymog/home-feed')
       .then(res=>res.json())
       .then(res=>{
-        dispatch(setUserHomeFeed(res))
+        console.log('res feed', res)
+        dispatch(setUserHomeFeed(res.data))
       })
-
+      .catch(err => console.log('err in feed', err))
+    fetch('/api/profile/treasurymog/get')
+      .then(res => res.json())
+      .then(res => {
+        console.log('res profile', res)
+        dispatch(setUserProfile(res.data))
+      })
   },[])
 
   return (
     <GridContainer>
-      <GlobalStyle />
-      <Topbar />
-      <Infobar />
       <Router>
+        <GlobalStyle />
+        <Topbar />
+        <Infobar />
         <Switch>
           <Route path='/' exact>
             <HomeFeed />
           </Route>
           <Route path='/compose' exact>
-            <MobileComposeTweet />
+            <ComposeTweet />
           </Route>
         </Switch>
       </Router>

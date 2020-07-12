@@ -21,7 +21,7 @@ const router = express.Router()
     const currentUser : string = req.params.currentUser;
     const profile : UserProfileType = getUserProfile(currentUser, currentUser);
 
-    simulateProblems(res, {profile});
+    simulateProblems(res, profile);
   })
 
   .get('/api/profile/:currentUser/other/:handle', (req : express.Request, res : express.Response) : void => {

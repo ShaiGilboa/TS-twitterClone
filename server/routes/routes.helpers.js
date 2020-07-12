@@ -36,7 +36,7 @@ exports.simulateProblems = (res, data) => {
         if (shouldError) {
             return res.status(500).json({ message: 'server error' });
         }
-        res.status(200).json(data);
+        res.status(200).json({ status: 200, data });
     }, delay);
     // res.status(200).json(data)
 };

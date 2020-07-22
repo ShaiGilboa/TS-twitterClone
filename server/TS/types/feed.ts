@@ -1,6 +1,7 @@
 import {MediaType, UserType} from '../data';
 import { UserProfileType } from './routes.helpers';
 
+
 export interface DenormalizedTweet {
   id: string,
   author?: UserProfileType,

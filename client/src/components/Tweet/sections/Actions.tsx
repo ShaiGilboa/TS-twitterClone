@@ -18,19 +18,31 @@ const actions : (keyof typeof PATHS)[] = ['reply',
 'like']
 
 enum ACTIONS_COLORS {
-  reply = "rgb(27, 149, 224)",
-  retweet = "rgb(23, 191, 99)",
-  like = "rgb(224, 36, 94)",
-  share = "rgb(27, 149, 224)",
+  reply = "rgba(27, 149, 224, 0.5)",
+  retweet = "rgba(23, 191, 99, 0.5)",
+  like = "rgba(224, 36, 94, 0.5)",
+  share = "rgba(27, 149, 224, 0.5)",
 }
 const Actions : React.FC<PropsWithChildren<props>> = ({ isLiked, isRetweeted, numLikes, numRetweets, children }) => {
-
+  
   return (
     <Wrapper data-css='Actions'>
       {actions.map((action : keyof typeof PATHS, index : number) =>
-        <ActionBtn actionColor={ACTIONS_COLORS[action]} key={`${index}${action}`}>
+      <div key={`${index}${action}`}>
+        <ActionBtn actionColor={ACTIONS_COLORS[action]} key={`${index}${action}`}
+          onClick={()=>console.log('action', action, numLikes, numRetweets)}
+        >
           <TweetActionIcon key={index} kind={action} size={24}/>
         </ActionBtn>
+      <div>{(() => {
+        switch (action) {
+          case 'like':
+            return numLikes;
+          case 'retweet':
+            return numRetweets;
+        }
+      })}</div>
+      </div>
         )}
     </Wrapper>
   )
@@ -45,7 +57,14 @@ const Wrapper = styled.div`
 `;
 
 const ActionBtn = styled<any>(UnstyledButton)`
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  justify-content: center;
   &:hover{
     background-color: ${props=>props.actionColor}
+  }
+  svg {
+    margin-top: 3px;
   }
 `;

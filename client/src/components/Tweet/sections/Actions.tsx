@@ -23,8 +23,15 @@ enum ACTIONS_COLORS {
   like = "rgba(224, 36, 94, 0.5)",
   share = "rgba(27, 149, 224, 0.5)",
 }
+
+
 const Actions : React.FC<PropsWithChildren<props>> = ({ isLiked, isRetweeted, numLikes, numRetweets, children }) => {
-  
+  const numbers = {
+    like: numLikes,
+    retweet: numRetweets,
+    reply: '',
+    share: '',
+  }
   return (
     <Wrapper data-css='Actions'>
       {actions.map((action : keyof typeof PATHS, index : number) =>
@@ -34,14 +41,17 @@ const Actions : React.FC<PropsWithChildren<props>> = ({ isLiked, isRetweeted, nu
         >
           <TweetActionIcon key={index} kind={action} size={24}/>
         </ActionBtn>
-      <div>{(() => {
-        switch (action) {
-          case 'like':
-            return numLikes;
-          case 'retweet':
-            return numRetweets;
-        }
-      })}</div>
+      <div>{
+        numbers[action]
+      // (() => {
+      //   switch (action) {
+      //     case 'like':
+      //       return numLikes;
+      //     case 'retweet':
+      //       return numRetweets;
+      //   }
+      // })
+      }</div>
       </div>
         )}
     </Wrapper>

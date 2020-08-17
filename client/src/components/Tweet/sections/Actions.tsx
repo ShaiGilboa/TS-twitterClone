@@ -41,17 +41,7 @@ const Actions : React.FC<PropsWithChildren<props>> = ({ isLiked, isRetweeted, nu
         >
           <TweetActionIcon key={index} kind={action} size={24}/>
         </ActionBtn>
-      <div>{
-        numbers[action]
-      // (() => {
-      //   switch (action) {
-      //     case 'like':
-      //       return numLikes;
-      //     case 'retweet':
-      //       return numRetweets;
-      //   }
-      // })
-      }</div>
+      <div>{numbers[action]}</div>
       </div>
         )}
     </Wrapper>
